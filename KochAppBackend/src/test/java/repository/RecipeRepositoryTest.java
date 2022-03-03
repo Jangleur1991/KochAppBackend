@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -56,5 +57,29 @@ public class RecipeRepositoryTest {
         //then
         assertTrue(recipes.contains(firstRecipe));
 
+    }
+
+    @Test
+    public void testThatFindByIdWithUnknownIdReturnOptionalEmpty() {
+        //given
+        String id = "0"; //TODO: How to ensure that the id doesn't exist?
+
+        //when
+        Optional<RecipeResponse> recipeResponse = testCandidate.findById(id);
+
+        //then
+        assertThat(recipeResponse).isEqualTo(Optional.empty());
+    }
+
+    @Test
+    public void testThatFindByIdWithKnownIdReturnRecipe() {
+        //given
+        String id = testCandidate.getRecipes().get(0).getId();
+
+        //when
+        Optional<RecipeResponse> recipeResponse = testCandidate.findById(id);
+
+        //then
+        assertThat(recipeResponse.get().getId()).isEqualTo(id);
     }
 }

@@ -7,6 +7,9 @@ REST resources:
 Get all recipes:   
 GET /api/recipes
 
+Get a recipe:  
+GET /api/recipes/{id}
+
 Create a new recipe:   
 POST /api/recipes
 
@@ -19,5 +22,5 @@ PUT /api/recipes/{id}
 Update a tag:  
 PUT /api/recipes/{id}/tags
 
-Get a recipe with specific tag:  
+Get all recipes with specific tag:  
 GET /api/recipes?tag={tag}

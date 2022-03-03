@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -47,5 +48,11 @@ public class RecipeRepository {
         return recipeResponse.getTags().stream()//
                 .map(String::toLowerCase)//
                 .collect(Collectors.toList());
+    }
+
+    public Optional<RecipeResponse> findById(String id) {
+        return recipes.stream() //
+                .filter(r -> r.getId().equals(id)) //
+                .findFirst();
     }
 }

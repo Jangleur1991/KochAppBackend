@@ -26,7 +26,7 @@ public class RecipeController {
     public ResponseEntity<RecipeResponse> getRecipeById(@PathVariable String id) {
         return recipeRepository //
                 .findById(id) //
-                .map(ResponseEntity::ok) //StatusCode 202
+                .map(ResponseEntity::ok) //StatusCode 200
                 .orElseGet(() -> ResponseEntity.notFound().build()); //StatusCode 404 in case id doesn't exist
     }
 }

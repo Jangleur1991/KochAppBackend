@@ -13,13 +13,20 @@ public class RecipeResponse {
     private final String id;
     private final String name;
     private final String durationInMinutes;
+    private final String description;
     private final List<String> ingredients;
     private final List<String> tags;
 
-    public RecipeResponse(String id, String name, String durationInMinutes, List<String> ingredients, List<String> tags) {
+    public RecipeResponse(String id,
+                          String name,
+                          String durationInMinutes,
+                          String description,
+                          List<String> ingredients,
+                          List<String> tags) {
         this.id = id;
         this.name = name;
         this.durationInMinutes = durationInMinutes;
+        this.description = description;
         this.ingredients = ingredients;
         this.tags = tags;
     }

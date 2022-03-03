@@ -18,6 +18,7 @@ public class RecipeRepository {
                     "1",
                     "Spagetti",
                     "20",
+                    "Mum's Spagetti",
                     Arrays.asList("Spagetti", "Tomatoes", "Salt", "Water"),
                     Arrays.asList("italian", "easy")
             ),
@@ -25,6 +26,7 @@ public class RecipeRepository {
                     "2",
                     "Hamburger",
                     "15",
+                    "Big Mac",
                     Arrays.asList("Burger Patty", "Roll", "Salat", "Ketchup", "Cheese"),
                     Arrays.asList("american", "fastfood", "easy")
             )

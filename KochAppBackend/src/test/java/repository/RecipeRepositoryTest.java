@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -81,5 +83,33 @@ public class RecipeRepositoryTest {
 
         //then
         assertThat(recipeResponse.get().getId()).isEqualTo(id);
+    }
+
+    @Test
+    public void testThatDeleteByIdWithUnknownIdReturnAllRecipes() {
+        //given
+        String id = UUID.randomUUID().toString();
+
+        //when
+        List<RecipeResponse> recipeResponses = testCandidate.deleteById(id);
+
+        //then
+        assertThat(recipeResponses).isEqualTo(testCandidate.getRecipes());
+    }
+
+    @Test
+    public void testThatDeleteByIdWithKnownIdReturnAllButOneRecipes() {
+        //given
+        String id = testCandidate.getRecipes().get(0).getId();
+        List<RecipeResponse> expectedResult = testCandidate.getRecipes().stream() //
+                .skip(1) //
+                .collect(Collectors.toList()); //
+
+        //when
+        List<RecipeResponse> recipeResponses = testCandidate.deleteById(id);
+
+        //then
+        assertThat(recipeResponses).isEqualTo(expectedResult);
+
     }
 }

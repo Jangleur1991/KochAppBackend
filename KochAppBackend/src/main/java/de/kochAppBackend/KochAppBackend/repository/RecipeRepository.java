@@ -56,10 +56,11 @@ public class RecipeRepository {
     }
 
     //TODO: Remove sideeffect later...
-    public void deleteById(String id) {
+    public List<RecipeResponse> deleteById(String id) {
         this.recipes = recipes.stream() //
                 .filter(r -> !r.getId().equals(id)) //
                 .collect(Collectors.toList());
+        return this.recipes;
     }
 
     public RecipeResponse save(RecipeCreateRequest request) {

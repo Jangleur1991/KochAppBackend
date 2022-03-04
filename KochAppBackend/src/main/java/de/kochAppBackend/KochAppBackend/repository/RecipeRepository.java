@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class RecipeRepository {
 
     //TODO: Only for test purposes
-    private final List<RecipeResponse> recipes = Arrays.asList(
+    private List<RecipeResponse> recipes = Arrays.asList(
             new RecipeResponse(
                     "1",
                     "Spagetti",
@@ -54,5 +54,12 @@ public class RecipeRepository {
         return recipes.stream() //
                 .filter(r -> r.getId().equals(id)) //
                 .findFirst();
+    }
+
+    //TODO: Remove sideeffect later...
+    public void deleteById(String id) {
+        this.recipes = recipes.stream() //
+                .filter(r -> !r.getId().equals(id)) //
+                .collect(Collectors.toList());
     }
 }

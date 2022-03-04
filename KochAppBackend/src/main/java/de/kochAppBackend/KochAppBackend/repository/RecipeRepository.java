@@ -1,12 +1,11 @@
 package de.kochAppBackend.KochAppBackend.repository;
 
+import de.kochAppBackend.KochAppBackend.model.RecipeCreateRequest;
 import de.kochAppBackend.KochAppBackend.model.RecipeResponse;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -14,7 +13,7 @@ import java.util.stream.Collectors;
 public class RecipeRepository {
 
     //TODO: Only for test purposes
-    private List<RecipeResponse> recipes = Arrays.asList(
+    private List<RecipeResponse> recipes = new ArrayList<>(Arrays.asList(
             new RecipeResponse(
                     "1",
                     "Spagetti",
@@ -31,7 +30,7 @@ public class RecipeRepository {
                     Arrays.asList("Burger Patty", "Roll", "Salat", "Ketchup", "Cheese"),
                     Arrays.asList("american", "fastfood", "easy")
             )
-    );
+    ));
 
     public List<RecipeResponse> findAll(String tag) {
         if (null == tag) {
@@ -61,5 +60,18 @@ public class RecipeRepository {
         this.recipes = recipes.stream() //
                 .filter(r -> !r.getId().equals(id)) //
                 .collect(Collectors.toList());
+    }
+
+    public RecipeResponse save(RecipeCreateRequest request) {
+        RecipeResponse response = new RecipeResponse(
+                UUID.randomUUID().toString(),
+                request.getName(),
+                request.getDurationInMinutes(),
+                request.getDescription(),
+                request.getIngredients(),
+                request.getTags()
+        );
+        this.recipes.add(response);
+        return response;
     }
 }

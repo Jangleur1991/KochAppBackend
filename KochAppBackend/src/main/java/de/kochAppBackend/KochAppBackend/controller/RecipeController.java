@@ -1,5 +1,6 @@
 package de.kochAppBackend.KochAppBackend.controller;
 
+import de.kochAppBackend.KochAppBackend.model.RecipeCreateRequest;
 import de.kochAppBackend.KochAppBackend.model.RecipeResponse;
 import de.kochAppBackend.KochAppBackend.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ public class RecipeController {
                 .findById(id) //
                 .map(ResponseEntity::ok) //StatusCode 200
                 .orElseGet(() -> ResponseEntity.notFound().build()); //StatusCode 404 in case id doesn't exist
+    }
+
+    @PostMapping("/recipes")
+    public RecipeResponse createProduct(@RequestBody RecipeCreateRequest request) {
+        return recipeRepository.save(request);
     }
 
     @DeleteMapping("/recipes/{id}")

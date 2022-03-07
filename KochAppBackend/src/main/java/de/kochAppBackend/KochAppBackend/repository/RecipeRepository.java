@@ -1,6 +1,6 @@
 package de.kochAppBackend.KochAppBackend.repository;
 
-import de.kochAppBackend.KochAppBackend.model.RecipeCreateRequest;
+import de.kochAppBackend.KochAppBackend.model.RecipeRequest;
 import de.kochAppBackend.KochAppBackend.model.RecipeResponse;
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
@@ -63,7 +63,7 @@ public class RecipeRepository {
         return this.recipes;
     }
 
-    public RecipeResponse save(RecipeCreateRequest request) {
+    public RecipeResponse save(RecipeRequest request) {
         RecipeResponse response = new RecipeResponse(
                 UUID.randomUUID().toString(),
                 request.getName(),

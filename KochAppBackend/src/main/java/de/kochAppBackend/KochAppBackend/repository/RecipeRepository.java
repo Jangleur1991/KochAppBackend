@@ -14,22 +14,22 @@ public class RecipeRepository {
 
     //TODO: Only for test purposes
     private List<RecipeResponse> recipes = new ArrayList<>(Arrays.asList(
-            new RecipeResponse(
-                    "1",
-                    "Spagetti",
-                    "20",
-                    "Mum's Spagetti",
-                    Arrays.asList("Spagetti", "Tomatoes", "Salt", "Water"),
-                    Arrays.asList("italian", "easy")
-            ),
-            new RecipeResponse(
-                    "2",
-                    "Hamburger",
-                    "15",
-                    "Big Mac",
-                    Arrays.asList("Burger Patty", "Roll", "Salat", "Ketchup", "Cheese"),
-                    Arrays.asList("american", "fastfood", "easy")
-            )
+            new RecipeResponse.Builder().with(b -> {
+                b.id = "1";
+                b.name = "Spagetti";
+                b.durationInMinutes = "20";
+                b.description = "Mum's Spagetti";
+                b.ingredients = Arrays.asList("Spagetti", "Tomatoes", "Salt", "Water");
+                b.tags = Arrays.asList("italian", "easy");
+            }).build(),
+            new RecipeResponse.Builder().with(b -> {
+                b.id = "2";
+                b.name = "Hamburger";
+                b.durationInMinutes = "15";
+                b.description = "Big Mac";
+                b.ingredients = Arrays.asList("Burger Patty", "Roll", "Salat", "Ketchup", "Cheese");
+                b.tags = Arrays.asList("american", "fastfood", "easy");
+            }).build()
     ));
 
     public List<RecipeResponse> findAll(String tag) {
@@ -64,14 +64,16 @@ public class RecipeRepository {
     }
 
     public RecipeResponse save(RecipeRequest request) {
-        RecipeResponse response = new RecipeResponse(
-                UUID.randomUUID().toString(),
-                request.getName(),
-                request.getDurationInMinutes(),
-                request.getDescription(),
-                request.getIngredients(),
-                request.getTags()
-        );
+        RecipeResponse response = new RecipeResponse.Builder()
+                .with(b -> {
+                      b.id = UUID.randomUUID().toString();
+                      b.name = request.getName();
+                      b.durationInMinutes = request.getDurationInMinutes();
+                      b.description = request.getDescription();
+                      b.ingredients =  request.getIngredients();
+                      b.tags = request.getTags();
+                }).build();
+
         this.recipes.add(response);
         return response;
     }

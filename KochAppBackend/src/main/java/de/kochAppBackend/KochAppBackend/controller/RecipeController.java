@@ -3,7 +3,6 @@ package de.kochAppBackend.KochAppBackend.controller;
 import de.kochAppBackend.KochAppBackend.model.RecipeRequest;
 import de.kochAppBackend.KochAppBackend.model.RecipeResponse;
 import de.kochAppBackend.KochAppBackend.repository.RecipeRepository;
-import de.kochAppBackend.KochAppBackend.validations.RecipeValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

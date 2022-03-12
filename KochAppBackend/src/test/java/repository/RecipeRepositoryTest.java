@@ -1,17 +1,23 @@
 package repository;
 
+import de.kochAppBackend.KochAppBackend.model.RecipeRequest;
 import de.kochAppBackend.KochAppBackend.model.RecipeResponse;
 import de.kochAppBackend.KochAppBackend.repository.RecipeRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class RecipeRepositoryTest {
 
@@ -37,13 +43,13 @@ public class RecipeRepositoryTest {
     @Test
     public void testThatFindAllWithUnknownTagReturnsNoRecipe() {
         //given
-        String tag = ""; //TODO: How to ensure that it doesn't appear as a tag in any recipe?
+        String tag = RandomStringUtils.random(10, true, false);
 
         //when
         List<RecipeResponse> recipes = testCandidate.findAll(tag);
 
         //then
-        assertThat(recipes.size()).isEqualTo(0);
+        assertThat(recipes.size()).isZero();
     }
 
     @Test
@@ -70,7 +76,7 @@ public class RecipeRepositoryTest {
         Optional<RecipeResponse> recipeResponse = testCandidate.findById(id);
 
         //then
-        assertThat(recipeResponse).isEqualTo(Optional.empty());
+        assertThat(recipeResponse).isEmpty();
     }
 
     @Test
@@ -112,4 +118,36 @@ public class RecipeRepositoryTest {
         assertThat(recipeResponses).isEqualTo(expectedResult);
 
     }
+
+    @Test
+    public void testThatSaveWithNullThrowsNPE() {
+        //given
+        RecipeRequest request = null;
+
+        //then
+        assertThrows(NullPointerException.class, () -> {
+        //when
+            testCandidate.save(request);
+        });
+    }
+
+    @Test
+    public void testThatSaveWithRequestNameReturnsResponseName() {
+        //given
+        String name = "testname";
+        RecipeRequest request = new RecipeRequest(
+                name,
+                null,
+                null,
+                null,
+                null
+        );
+
+        //when
+        RecipeResponse result = testCandidate.save(request);
+
+        //then
+        assertThat(result.getName()).isEqualTo(name);
+    }
+
 }

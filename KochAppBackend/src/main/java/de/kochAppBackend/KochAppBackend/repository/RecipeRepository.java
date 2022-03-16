@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/*
+RecipeRespository: Manages recipes. Later responsible for access to database. Part of the PersistenceLayer!
+ */
 @Repository
 @Getter
 public class RecipeRepository {

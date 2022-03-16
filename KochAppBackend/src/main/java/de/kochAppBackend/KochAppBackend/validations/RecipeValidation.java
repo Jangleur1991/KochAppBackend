@@ -22,6 +22,10 @@ public interface RecipeValidation extends Function<RecipeRequest, Boolean> {
         return (RecipeRequest r) -> !r.getIngredients().isEmpty();
     }
 
+    default RecipeValidation and(RecipeValidation other) {
+        return (RecipeRequest r) -> this.apply(r) && other.apply(r);
+    }
+
     static boolean isValid(RecipeRequest request) {
         return Stream.of(nameIsNotEmpty(), //
                          durationInMinutesIsNumber(), //

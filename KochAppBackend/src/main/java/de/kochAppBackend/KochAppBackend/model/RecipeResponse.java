@@ -1,6 +1,6 @@
 package de.kochAppBackend.KochAppBackend.model;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 /**
  * A model object i.e. a business object without programme logic.
  */
-@Getter
+@Data
 public class RecipeResponse {
 
     private final String id;

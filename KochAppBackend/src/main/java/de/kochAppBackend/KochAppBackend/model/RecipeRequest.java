@@ -1,16 +1,18 @@
 package de.kochAppBackend.KochAppBackend.model;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@Getter
+@Data
+@NoArgsConstructor
 public class RecipeRequest {
-    private final String name;
-    private final String durationInMinutes;
-    private final String description;
-    private final List<String> ingredients;
-    private final List<String> tags;
+    private String name;
+    private String durationInMinutes;
+    private String description;
+    private List<String> ingredients;
+    private List<String> tags;
 
     public RecipeRequest(String name,
                          String durationInMinutes,

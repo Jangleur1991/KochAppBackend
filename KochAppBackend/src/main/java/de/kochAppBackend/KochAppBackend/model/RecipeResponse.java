@@ -18,7 +18,6 @@ public class RecipeResponse {
     private final List<String> ingredients;
     private final List<String> tags;
 
-
     public static class Builder {
         public String id;
         public String name;

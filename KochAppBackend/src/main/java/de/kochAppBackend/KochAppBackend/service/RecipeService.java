@@ -17,7 +17,6 @@ public class RecipeService {
 
     RecipeRepository recipeRepository = new RecipeRepository();
 
-
     public List<RecipeResponse> getAllRecipes(String tag) {
         return recipeRepository.findAll(tag);
     }

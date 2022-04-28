@@ -2,24 +2,33 @@ package de.kochAppBackend.KochAppBackend.validations;
 
 import de.kochAppBackend.KochAppBackend.model.RecipeRequest;
 
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
-
-import static de.kochAppBackend.KochAppBackend.validations.Misc.isNumeric;
 
 
 public interface RecipeValidation extends Function<RecipeRequest, Boolean> {
 
     static RecipeValidation nameIsNotEmpty() {
-        return (RecipeRequest r) -> !r.getName().trim().isEmpty();
+        return (RecipeRequest r) -> Optional.ofNullable(r) //
+                .map(RecipeRequest::getName) //
+                .map(String::trim)//
+                .map(s -> !s.isEmpty())//
+                .orElse(false);
     }
 
     static RecipeValidation durationInMinutesIsNumber() {
-        return (RecipeRequest r) -> isNumeric(r.getDurationInMinutes());
+        return (RecipeRequest r) -> Optional.ofNullable(r) //
+                .map(RecipeRequest::getDurationInMinutes)//
+                .map(Misc::isNumeric)//
+                .orElse(false);
     }
 
     static RecipeValidation ingredientsNotEmpty() {
-        return (RecipeRequest r) -> !r.getIngredients().isEmpty();
+        return (RecipeRequest r) -> Optional.ofNullable(r)//
+                .map(RecipeRequest::getIngredients)
+                .map(ingredients -> !ingredients.isEmpty())
+                .orElse(false);
     }
 
     default RecipeValidation and(RecipeValidation other) {
@@ -27,7 +36,7 @@ public interface RecipeValidation extends Function<RecipeRequest, Boolean> {
     }
 
     static boolean isValid(RecipeRequest request) {
-        return Stream.of(nameIsNotEmpty(), //
+         return Stream.of(nameIsNotEmpty(), //
                          durationInMinutesIsNumber(), //
                          ingredientsNotEmpty()) //
                      .allMatch(v -> v.apply(request));
